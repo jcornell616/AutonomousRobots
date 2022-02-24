@@ -130,8 +130,8 @@ void Motor_LeftSimple(uint16_t duty){
     P3->OUT |= 0x80;
     TIMER_A0->CCR[0] =  6000;
     TIMER_A0->EX0 = 0x0000;
-    TIMER_A0->CCTL[3] = 0x0080;    // CCR3 toggle/reset
-    TIMER_A0->CCR[3] = duty;       // CCR3 duty cycle is duty1/period
+    TIMER_A0->CCTL[4] = 0x0080;    // CCR3 toggle/reset
+    TIMER_A0->CCR[4] = duty;       // CCR3 duty cycle is duty1/period
     TIMER_A0->CTL = 0x0230;        // SMCLK=12MHz, divide by 1, up-down mode
 
   // write this as part of Lab 12
@@ -145,8 +145,8 @@ void Motor_RightSimple(uint16_t duty){
     P1->OUT &= ~0xC0;               //makes wheels go backwards
     P3->OUT |= 0xC0;
     TIMER_A0->CCR[0] =  6000;
-    TIMER_A0->CCTL[4] = 0x0080;    // CCR4 toggle/reset
-    TIMER_A0->CCR[4] = duty;       // CCR4 duty cycle is duty1/period
+    TIMER_A0->CCTL[3] = 0x0080;    // CCR4 toggle/reset
+    TIMER_A0->CCR[3] = duty;       // CCR4 duty cycle is duty1/period
     TIMER_A0->CTL = 0x0230;        // SMCLK=12MHz, divide by 1, up-down mode
 
   // write this as part of Lab 12
