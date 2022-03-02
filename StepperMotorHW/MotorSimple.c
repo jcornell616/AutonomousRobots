@@ -151,3 +151,31 @@ void Motor_RightSimple(uint16_t duty){
 
   // write this as part of Lab 12
 }
+
+void Forward(uint16_t speed, uint16_t time_ms) {
+    uint16_t duty = 5500 - 54*speed;
+    Motor_ForwardSimple(duty);
+    Clock_Delay1ms(time_ms);
+    Motor_StopSimple();
+}
+
+void Backward(uint16_t speed, uint16_t time_ms) {
+    uint16_t duty = 5500 - 54*speed;
+    Motor_BackwardSimple(duty);
+    Clock_Delay1ms(time_ms);
+    Motor_StopSimple();
+}
+
+void Right(uint16_t speed, uint16_t time_ms) {
+    uint16_t duty = 5500 - 54*speed;
+    Motor_LeftSimple(duty);
+    Clock_Delay1ms(time_ms);
+    Motor_StopSimple();
+}
+
+void Left(uint16_t speed, uint16_t time_ms) {
+    uint16_t duty = 5500 - 54*speed;
+    Motor_RightSimple(duty);
+    Clock_Delay1ms(time_ms);
+    Motor_StopSimple();
+}

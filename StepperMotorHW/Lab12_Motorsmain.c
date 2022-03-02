@@ -61,84 +61,204 @@ policies, either expressed or implied, of the FreeBSD Project.
 #include "..\inc\LaunchPad.h"
 #include "..\inc\MotorSimple.h"
 
-// Driver test
-void Pause(void){
-  while(LaunchPad_Input()==0);  // wait for touch
-  while(LaunchPad_Input());     // wait for release
-}
-int Program12_1(void){
-  Clock_Init48MHz();
-  LaunchPad_Init(); // built-in switches and LEDs
-  Motor_InitSimple();     // your function
-  while(1){
-    Pause();
-    Motor_ForwardSimple(5000);  // your function
-    Clock_Delay1ms(500);
-    Motor_StopSimple();
-    Pause();
-    Motor_BackwardSimple(5000); // your function
-    Clock_Delay1ms(500);
-    Motor_StopSimple();
-    Pause();
-    Motor_LeftSimple(5000);     // your function
-    Clock_Delay1ms(500);
-    Motor_StopSimple();
-    Pause();
-    Motor_RightSimple(5000);    // your function
-    Clock_Delay1ms(500);
-    Motor_StopSimple();
+#define SPEED1 0
+#define SPEED2 50
+#define SPEED3 100
+#define INPERS 29
+
+/*** Function Declarations ***/
+void Pause(void);
+void StraightLine1s_Speed1(void);
+void StraightLine1s_Speed2(void);
+void StraightLine1s_Speed3(void);
+void StraightLine3s_Speed1(void);
+void StraightLine3s_Speed2(void);
+void StraightLine3s_Speed3(void);
+void StraightLine5s_Speed1(void);
+void StraightLine5s_Speed2(void);
+void StraightLine5s_Speed3(void);
+void PivotLeft45(void);
+void PivotLeft90(void);
+void PivotLeft180(void);
+void PivotLeft270(void);
+void PivotRight45(void);
+void PivotRight90(void);
+void PivotRight180(void);
+void PivotRight270(void);
+void PivotRight30(void);
+
+void Question1(void);
+void Question2(void);
+void Question3(void);
+void Question4(void);
+void Question5(void);
+void Question6(void);
+
+/*** Main Functions ***/
+int main(void) {
+
+    // system initialization
+    Clock_Init48MHz();
+    LaunchPad_Init();
+    Motor_InitSimple();
+
+    // event loop
+    while(1) {
+        // wait for user input
+        Pause();
+        // start path
+        Question4();
   }
 }
 
-// Voltage current and speed as a function of duty cycle
-int Program12_2(void){
-  uint16_t duty;
-  Clock_Init48MHz();
-  LaunchPad_Init();   // built-in switches and LEDs
-  Motor_InitSimple(); // initialization
-  while(1){
-    for(duty=2000; duty<=8000; duty=duty+2000){
-      Motor_StopSimple();   // measure current
-      Pause();
-      Motor_LeftSimple(duty);  // measure current
+/*** Function Definitions ***/
+
+// Wait for user input
+void Pause(void) {
+  while(LaunchPad_Input() == 0);    // wait for touch
+  while(LaunchPad_Input());         // wait for release
+  Clock_Delay1ms(1000);             // 1s delay to allow user to take hand off
+}
+
+void StraightLine1s_Speed1(void) {
+    Forward(SPEED1, 1000);
+}
+void StraightLine1s_Speed2(void) {
+    Forward(SPEED2, 1000);
+}
+void StraightLine1s_Speed3(void) {
+    Forward(SPEED3, 1000);
+}
+void StraightLine3s_Speed1(void) {
+    Forward(SPEED1, 3000);
+}
+void StraightLine3s_Speed2(void) {
+    Forward(SPEED2, 3000);
+}
+void StraightLine3s_Speed3(void) {
+    Forward(SPEED3, 3000);
+}
+void StraightLine5s_Speed1(void) {
+    Forward(SPEED1, 5000);
+}
+void StraightLine5s_Speed2(void) {
+    Forward(SPEED2, 5000);
+}
+void StraightLine5s_Speed3(void) {
+    Forward(SPEED3, 5000);
+}
+
+void PivotLeft45(void) {
+    Left(75, 70);
+}
+void PivotLeft90(void) {
+    Left(75, 130);
+}
+void PivotLeft180(void) {
+    Left(75, 300);
+}
+void PivotLeft270(void) {
+    Left(75, 575);
+}
+void PivotRight45(void) {
+    Right(75, 60);
+}
+void PivotRight90(void) {
+    Right(75, 120);
+}
+void PivotRight180(void) {
+    Right(75, 290);
+}
+void PivotRight270(void) {
+    Right(75, 550);
+}
+void PivotRight30(void) {
+    Right(75, 40);
+}
+
+void Question1(void) {
+    uint16_t i;
+    for (i = 0; i < 5; i++) {
+        StraightLine1s_Speed1();
+        Pause();
+        StraightLine1s_Speed2();
+        Pause();
+        StraightLine1s_Speed3();
+        Pause();
+        StraightLine3s_Speed1();
+        Pause();
+        StraightLine3s_Speed2();
+        Pause();
+        StraightLine3s_Speed3();
+        Pause();
+        StraightLine5s_Speed1();
+        Pause();
+        StraightLine5s_Speed2();
+        Pause();
+        StraightLine5s_Speed3();
+        Pause();
     }
-  }
 }
 
-int Program12_3(void){
-  Clock_Init48MHz();
-  LaunchPad_Init();   // built-in switches and LEDs
-  Motor_InitSimple(); // initialization
-  while(1){
+void Question2(void) {
+    Forward(75, 12*INPERS);
     Pause();
-    Motor_ForwardSimple(9900); // max speed 15 s
-  }
+    Forward(75, 36*INPERS);
+    Pause();
+    Forward(75, 60*INPERS);
 }
 
-// does the robot move straight?
-int main(void){ // Program12_4
-  Clock_Init48MHz();
-  LaunchPad_Init();   // built-in switches and LEDs
-  Motor_InitSimple(); // initialization
-  while(1){
-    //Pause(); // start on SW1 or SW2
-    LaunchPad_Output(0x02);
-    Motor_ForwardSimple(3500);
-    Clock_Delay1ms(3000);
-    LaunchPad_Output(0x00);
-    Motor_StopSimple();
-    Clock_Delay1ms(1000);
-    LaunchPad_Output(0x01);
-    Motor_BackwardSimple(4000); // reverse 2 sec
-    Clock_Delay1ms(3000);
-    Motor_StopSimple();
-    Clock_Delay1ms(1000);
-    LaunchPad_Output(0x03);
-    Motor_LeftSimple(10);     // right turn 2 sec
-    Clock_Delay1ms(3000);
-    Motor_StopSimple();
-    Clock_Delay1ms(1000);
-  }
+void Question3(void) {
+    PivotRight45();
+    Pause();
+    PivotRight90();
+    Pause();
+    PivotRight180();
+    Pause();
+    PivotRight270();
 }
 
+void Question4(void) {
+    uint16_t delay = 750;
+    Forward(75, 36*INPERS);
+    Clock_Delay1ms(delay);
+    PivotLeft90();
+    Forward(75, 18*INPERS);
+    Clock_Delay1ms(delay);
+    PivotRight90();
+    Clock_Delay1ms(delay);
+    Forward(75, 60*INPERS);
+    Clock_Delay1ms(delay);
+    PivotRight90();
+    Clock_Delay1ms(delay);
+    Forward(75, 48*INPERS);
+    Clock_Delay1ms(delay);
+    PivotRight45();
+    Clock_Delay1ms(delay);
+    Forward(75, 48*INPERS);
+    Clock_Delay1ms(delay);
+    PivotRight45();
+    Clock_Delay1ms(delay);
+    Forward(75, 30*INPERS);
+    Clock_Delay1ms(delay);
+    // ???
+    PivotRight90();
+    Clock_Delay1ms(delay);
+    Forward(75, 18*INPERS);
+    Clock_Delay1ms(delay);
+    PivotLeft90();
+    Clock_Delay1ms(delay);
+    Forward(75, 20*INPERS);
+    Clock_Delay1ms(delay);
+    PivotRight30();
+    Clock_Delay1ms(delay);
+    Forward(75, 24*INPERS);
+}
 
+void Question5(void) {
+
+}
+
+void Question6(void) {
+
+}
