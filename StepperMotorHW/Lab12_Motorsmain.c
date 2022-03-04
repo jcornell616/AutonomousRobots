@@ -260,5 +260,32 @@ void Question5(void) {
 }
 
 void Question6(void) {
-
+     while(1){
+    Pause(); // start on SW1 or SW2
+    Motor_LeftSimple(4500);     // right turn 2 sec
+    Motor_RightSimple(4000);     // right turn 2 sec
+    Clock_Delay1ms(10600);
+    Motor_LeftSimple(4000);     // right turn 2 sec
+    Motor_RightSimple(4250);     // right turn 2 sec
+    Clock_Delay1ms(10700);
+    Motor_LeftSimple(4500);     // right turn 2 sec
+    Motor_RightSimple(4000);     // right turn 2 sec
+    Clock_Delay1ms(10600);
+    Motor_LeftSimple(4000);     // right turn 2 sec
+    Motor_RightSimple(4250);     // right turn 2 sec
+    Clock_Delay1ms(10700);
+    Motor_LeftSimple(4500);     // right turn 2 sec
+    Motor_RightSimple(4000);     // right turn 2 sec
+    Clock_Delay1ms(10600);
+    Motor_LeftSimple(4000);     // right turn 2 sec
+    Motor_RightSimple(4250);     // right turn 2 sec
+    Clock_Delay1ms(10700);
+    Motor_LeftSimple(4500);     // right turn 2 sec
+    Motor_RightSimple(4000);     // right turn 2 sec
+    Clock_Delay1ms(10600);
+    Motor_LeftSimple(4000);     // right turn 2 sec
+    Motor_RightSimple(4250);     // right turn 2 sec
+    Clock_Delay1ms(10700);
+    Motor_StopSimple();
+  }
 }
